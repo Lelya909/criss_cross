@@ -19,7 +19,7 @@ def do_hod():
         print("ведите номера клеток")
         i = input()
         j = input()
-    return [int(i), int(i)]
+    return [int(i), int(j)]
 
 
 def try_to_game(position, pole, hod):
@@ -63,17 +63,25 @@ GAME = True
 
 while GAME:
     ij = do_hod()
+
     if try_to_game(ij, criss_cross, count_hod):
+        os.system('cls')
         print_pole(criss_cross)
         count_hod += 1
     else:
         print("Это поле занято, введите новые значения")
         ij = do_hod()
 
-    if game_end(criss_cross) or count_hod == 9:
+    out_moves = count_hod == 9
+    if game_end(criss_cross) or out_moves:
         GAME = False
+        if out_moves:
+            print("Ничья")
+        elif count_hod % 2 != 0:
+            print("Крестики победили")
+        else:
+            print("Нолики победили")
 
-    os.system('cls')
 
 else:
     print("Спасибо за игру")
